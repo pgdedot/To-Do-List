@@ -38,7 +38,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-
 }
 
 .header__title{
@@ -192,39 +191,37 @@ body {
 }
 
 .task__checkbox {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  width: 24px;
-  height: 24px;
-  border-radius: 100%;
-  background-color: #262626;
-  border: 2px solid #4ea8de;
-  cursor: pointer; 
-
-  display: inline-block;
-  position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background-color: #262626;
+    border: 2px solid #4ea8de;
+    cursor: pointer; 
+    
+    display: inline-block;
+    position: relative;
 }
 
  
-/* Состояние: когда чекбокс отмечен */
 .task__checkbox:checked {
-  background-color: #585ABD; 
-  border-color: #585ABD;
+    background-color: #585ABD; 
+    border-color: #585ABD;
 }
 
-/* Галочка */
 .task__checkbox:checked::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 7px;
-  width: 4px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 7px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 
 .task__trash{
