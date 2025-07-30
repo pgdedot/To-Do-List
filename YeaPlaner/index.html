@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YeaPlanner</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__icon">
+                    <img src="assets/icons/rocket.png" alt="logo">
+                </div>
+                <h1 class="header__title">to<span class="header__title-color">do</span></h1>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <form action="" class="main__form">
+                <input type="text" class="main__form-input" id="task" placeholder="Введите задачу">
+                <button type="submit" class="main__form-button">
+                    Add
+                    <img src="assets/icons/plus.png" alt="plus">
+                </button>
+            </form>
+
+            <div class="tasks__list-container">
+                <h2 class="tasks__list-title">Всего задач <span id="count">0</span></h2>
+                <h2 class="tasks__list-counter"> Выполнено задач <span id="counter">0/0</span></h2>
+                <select name="" id="" class="tasks__list-filter">
+                    <option value="All" class="tasks__list-filter-item">All</option>
+                    <option value="Completed" class="tasks__list-filter-item">Completed</option>
+                    <option value="Not Completed" class="tasks__list-filter-item">Not Completed</option>
+                </select>
+                <div class="tasks__list empty">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

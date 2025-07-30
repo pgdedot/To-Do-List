@@ -1,0 +1,242 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+html, body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.header{
+    background-color: #0d0d0d;
+    padding: 0;
+    margin: 0;
+    height: 173px;
+}
+
+.header__content{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+}
+
+.header__title{
+    color: #4ea8de;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.header__title-color{
+    color: #5e60ce;
+}
+
+.main__form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.main{
+    background: linear-gradient(to bottom, #0d0d0d 0px, #0d0d0d 23px, #1a1a1a 23px, #1a1a1a 100%);
+    flex: 1
+}
+
+.main__form-input{
+    width: 736px;
+    height: 20px;
+    border: 1px solid #0d0d0d;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #262626;
+    color: #f2f2f2;
+}
+
+
+.main__form-input::placeholder{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #808080;
+}
+
+.main__form-button{
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    width: 90px;
+    height: 54px;
+    background-color: #1e6f9f;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 140%;
+    color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+
+.tasks__list-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    padding-top: 66px;
+}
+
+.tasks__list-container > .tasks__list {
+    grid-column: 1 / -1;
+}
+
+.tasks__list-title{
+    font-weight: 700;
+    font-size: 14px;
+    color:  #4ea8de;
+    justify-self: start;
+}
+
+.tasks__list-counter {
+    font-weight: 700;
+    font-size: 14px;
+    color: #8284fa;
+    justify-self: end;
+}
+
+.tasks__list-title span{
+    border-radius: 999px;
+    padding: 2px 8px;
+    width: 25px;
+    height: 19px;
+    font-weight: 700;
+    font-size: 12px;
+    color: #d9d9d9;
+    background-color: #333;
+}
+
+.tasks__list-counter span{
+    border-radius: 999px;
+    padding: 2px 8px;
+    width: 25px;
+    height: 19px;
+    font-weight: 700;
+    font-size: 12px;
+    color: #d9d9d9;
+    background-color: #333;
+}
+
+
+.task {
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #333;
+    min-height: 72px;
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #f2f2f2;
+    background: #262626;
+    margin-top: 20px;
+    word-break: break-word;
+}
+
+.task__description {
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: center;
+}
+
+.task__checkbox, .task__trash {
+    flex-shrink: 0;
+}
+
+.task.completed{
+    background: #262626;
+    border: 1px solid #262626;
+    text-decoration: line-through;
+    color: #808080;
+}
+
+
+.tasks__list.empty{
+    border-top: 1px solid #333;
+    border-radius: 8px;
+    padding: 64px 24px;
+}
+
+.task__checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  background-color: #262626;
+  border: 2px solid #4ea8de;
+  cursor: pointer; 
+
+  display: inline-block;
+  position: relative;
+}
+
+ 
+/* Состояние: когда чекбокс отмечен */
+.task__checkbox:checked {
+  background-color: #585ABD; 
+  border-color: #585ABD;
+}
+
+/* Галочка */
+.task__checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.task__trash{
+    cursor: pointer;
+}
+
+.tasks__list-filter {
+    width: 140px;
+    height: 22px;
+    background-color: #262626;
+    color: #4ea8de;
+    font-size: 13px;
+    border-radius: 20px;
+}
+
