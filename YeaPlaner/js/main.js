@@ -71,8 +71,16 @@ function handleIsCheckedClick (event) {
     saveTasksToStorage();
 
     toggleCompletedClass(taskElement);
-    rerenderCompleteCounter(tasksArr);
+    renderCompleteCounter(tasksArr);
     renderFilteredTasks(filterState);
+}
+
+function createTask(description) {
+    return {
+        description,
+        id: Date.now() - Math.floor(Math.random() * 100000),
+        isCompleted: false
+    };
 }
 
 function resetFilters() {
@@ -93,19 +101,11 @@ function renderFilteredTasks(value) {
     renderTasks(filteredTasks);
 }
 
-function createTask(description) {
-    return {
-        description,
-        id: Date.now() - Math.floor(Math.random() * 100000),
-        isCompleted: false
-    };
-}
-
-function rerenderCounter (tasks) {
+function renderCounter (tasks) {
     taskCounterTitle.firstElementChild.textContent = tasks.length
 }
 
-function rerenderCompleteCounter (tasks) {
+function renderCompleteCounter (tasks) {
     const completeTasks = tasks.filter(elem => elem.isCompleted === true).length
     completedTaskCounter.firstElementChild.textContent = `${completeTasks}/${tasks.length}`
 }
@@ -131,8 +131,8 @@ function renderTask({ id, description, isCompleted}) {
 function updateUI () {
     renderTasks(tasksArr);
     toggleEmptyClass(tasksArr);
-    rerenderCounter(tasksArr);
-    rerenderCompleteCounter(tasksArr);
+    renderCounter(tasksArr);
+    renderCompleteCounter(tasksArr);
     resetFilters();
 }
 
@@ -161,7 +161,7 @@ function loadTasksFromStorage() {
 
     renderFilteredTasks(filterState);
     toggleEmptyClass(tasksArr);
-    rerenderCounter(tasksArr);
-    rerenderCompleteCounter(tasksArr);
+    renderCounter(tasksArr);
+    renderCompleteCounter(tasksArr);
     filters.disabled = tasksArr.length === 0;
 }
