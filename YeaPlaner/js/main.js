@@ -66,7 +66,7 @@ function handleIsCheckedClick (event) {
     const taskElement = event.target.closest('.task');
     const id = parseInt(taskElement.dataset.id);
 
-    const index = tasksArr.findIndex(x => x.id === id);
+    const index = tasksArr.findIndex(elem => elem.id === id);
     tasksArr[index].isCompleted = !tasksArr[index].isCompleted;
     saveTasksToStorage();
 
