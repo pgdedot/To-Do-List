@@ -4,11 +4,11 @@ const input = document.querySelector('.main__form-input');
 const taskCounterTitle = document.querySelector('.tasks__list-title');
 const completedTaskCounter = document.querySelector('.tasks__list-counter');
 const filters = document.querySelector('.tasks__list-filter');
-filters.disabled = true
 
 let tasksArr = [];
 let filterState = 'All';
 
+filters.disabled = true
 loadTasksFromStorage();
 
 form.addEventListener('submit', handleFormSubmit);
