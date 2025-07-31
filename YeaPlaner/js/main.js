@@ -9,6 +9,19 @@ let tasksArr = [];
 let filterState = 'All';
 
 filters.disabled = true
+
+const renderFilteredTasks = {
+    'All': function () {
+        renderTasks(tasksArr);
+    },
+    'Completed': function() {
+        renderTasks(tasksArr.filter(task => task.isCompleted));
+    },
+    'Not Completed': function() {
+        renderTasks(tasksArr.filter(task => !task.isCompleted));
+    }
+}
+
 loadTasksFromStorage();
 
 form.addEventListener('submit', handleFormSubmit);
@@ -18,7 +31,8 @@ filters.addEventListener('change', handleFiltersChange);
 
 function handleFiltersChange (event) {
     filterState = event.target.value;
-    renderFilteredTasks(filterState);
+    renderFilteredTasks[filterState]()
+    saveTasksToStorage()
 }
 
 function handleFormSubmit(event) {
@@ -50,29 +64,31 @@ function handleTrashClick(event) {
     const trashIcon = event.target.closest('.task__trash');
     if (!trashIcon) return;
 
-    const taskElement = trashIcon.closest('.task');
-    const taskId = parseInt(taskElement.dataset.id);
-
-    tasksArr = tasksArr.filter(task => task.id !== taskId);
-    updateUI();
-    saveTasksToStorage();
-    resetFilters();
-    filters.disabled = tasksArr.length === 0;
+    handleTaskAction(trashIcon)
 }
 
 function handleIsCheckedClick (event) {
     if (event.target.tagName !== 'INPUT') return;
 
-    const taskElement = event.target.closest('.task');
+    handleTaskAction(event.target);
+}
+
+function handleTaskAction  (element) {
+    const taskElement = element.closest('.task');
     const id = parseInt(taskElement.dataset.id);
 
-    const index = tasksArr.findIndex(elem => elem.id === id);
-    tasksArr[index].isCompleted = !tasksArr[index].isCompleted;
+    if(element.tagName === 'INPUT'){
+        const index = tasksArr.findIndex(element => element.id === id)
+        tasksArr[index].isCompleted = !tasksArr[index].isCompleted;
+        toggleCompletedClass(taskElement);
+        renderCompleteCounter(tasksArr);
+        renderFilteredTasks[filterState]();
+    } else if (element.classList.contains('task__trash')) {
+        tasksArr = tasksArr.filter(elem => elem.id !== id);
+        updateUI();
+        filters.disabled = tasksArr.length === 0;
+    }
     saveTasksToStorage();
-
-    toggleCompletedClass(taskElement);
-    renderCompleteCounter(tasksArr);
-    renderFilteredTasks(filterState);
 }
 
 function createTask(description) {
@@ -81,24 +97,6 @@ function createTask(description) {
         id: Date.now() - Math.floor(Math.random() * 100000),
         isCompleted: false
     };
-}
-
-function resetFilters() {
-    filterState = 'All'
-    filters.value = 'All';
-    renderFilteredTasks(filterState);
-}
-
-function renderFilteredTasks(value) {
-    let filteredTasks = tasksArr;
-
-    if (value === 'Completed') {
-        filteredTasks = tasksArr.filter(task => task.isCompleted);
-    } else if (value === 'Not Completed') {
-        filteredTasks = tasksArr.filter(task => !task.isCompleted);
-    }
-
-    renderTasks(filteredTasks);
 }
 
 function renderCounter (tasks) {
@@ -129,11 +127,10 @@ function renderTask({ id, description, isCompleted}) {
 }
 
 function updateUI () {
-    renderTasks(tasksArr);
+    renderFilteredTasks[filterState]();
     toggleEmptyClass(tasksArr);
     renderCounter(tasksArr);
     renderCompleteCounter(tasksArr);
-    resetFilters();
 }
 
 function toggleCompletedClass (taskElement) {
@@ -145,6 +142,7 @@ function toggleEmptyClass(tasks) {
 }
 
 function saveTasksToStorage (tasks = tasksArr) {
+    localStorage.setItem('filterState', filterState); 
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
@@ -153,13 +151,22 @@ function loadTasksFromStorage() {
     if(!savedTasks) return;
     try{
         tasksArr = JSON.parse(savedTasks);
+
+        const savedFilter = localStorage.getItem('filterState');
+        filterState = (savedFilter in renderFilteredTasks) ? savedFilter : 'All';
+        filters.value = filterState;
+
+        renderFilteredTasks[filterState]();
     } catch(e) {
         console.error('Ошибка localStorage', e);
         tasksArr = [];
         return;
     }
 
-    renderFilteredTasks(filterState);
+    filterState = localStorage.getItem('filterState') || 'All';
+    filters.value = filterState;
+
+    renderFilteredTasks[filterState]();
     toggleEmptyClass(tasksArr);
     renderCounter(tasksArr);
     renderCompleteCounter(tasksArr);
