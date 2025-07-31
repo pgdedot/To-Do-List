@@ -163,9 +163,6 @@ function loadTasksFromStorage() {
         return;
     }
 
-    filterState = localStorage.getItem('filterState') || 'All';
-    filters.value = filterState;
-
     renderFilteredTasks[filterState]();
     toggleEmptyClass(tasksArr);
     renderCounter(tasksArr);
